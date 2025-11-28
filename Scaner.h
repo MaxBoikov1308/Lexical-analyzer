@@ -36,7 +36,6 @@ class Scaner {
     std::map<char, LexemType> punctuation;
 
     int nextChar();
-    int peekChar();
     void putbackChar(char c);
 
     size_t line;

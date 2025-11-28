@@ -158,11 +158,6 @@ int Scaner::nextChar() {
     return c;
 }
 
-int Scaner::peekChar() {
-    int c = _in.peek();
-    return c == EOF ? -1 : c;
-}
-
 void Scaner::putbackChar(char c) {
     if (c == (char)-1) {
         return;
