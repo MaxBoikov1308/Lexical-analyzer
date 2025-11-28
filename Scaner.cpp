@@ -183,10 +183,10 @@ Token Scaner::getNextToken() {
                 return Token(LexemType::eof);
             }
             if (state == 3) {
-                return Token(LexemType::error, "unclosed string");
+                return Token(LexemType::error, "незакрытая строка");
             }
             if (state == 2 || state == 4) {
-                return Token(LexemType::error, "unclosed char");
+                return Token(LexemType::error, "незакрытая символьная константа");
             }
             if (state == 1) {
                 return Token(numVal);
@@ -265,7 +265,7 @@ Token Scaner::getNextToken() {
                     return Token(punctuation[ch]);
                 }
                 
-                return Token(LexemType::error, string("bad char '") + ch + "'");
+                return Token(LexemType::error, string("некорректная символьная константа '") + ch + "'");
 
             case 1:
                 if (isdigit(ch)) {
@@ -278,7 +278,7 @@ Token Scaner::getNextToken() {
 
             case 2:
                 if (ch == '\'') {
-                    return Token(LexemType::error, "empty char");
+                    return Token(LexemType::error, "пустая символьная константа");
                 }
                 buf = ch;
                 state = 4;
@@ -289,7 +289,7 @@ Token Scaner::getNextToken() {
                     return Token(LexemType::str, buf);
                 }
                 if (ch == '\n') {
-                    return Token(LexemType::error, "newline in string");
+                    return Token(LexemType::error, "\n в строке");
                 }
                 buf += ch;
                 break;
@@ -299,7 +299,7 @@ Token Scaner::getNextToken() {
                     return Token(buf[0]);
                 }
                 putbackChar(ch);
-                return Token(LexemType::error, "multi-char constant");
+                return Token(LexemType::error, "символьная константа содержит более одного символа");
 
             case 5:
                 if (isalnum(ch) || ch == '_') {
@@ -346,10 +346,10 @@ Token Scaner::getNextToken() {
                     return Token(buf[0] == '|' ? LexemType::opor : LexemType::opand);
                 }
                 putbackChar(ch);
-                return Token(LexemType::error, string("single ") + buf[0]);
+                return Token(LexemType::error, string("одиночный символ ") + buf[0]);
 
             default:
-                return Token(LexemType::error, "scanner bug");
+                return Token(LexemType::error, "какая-то ошибка");
         }
     }
 }

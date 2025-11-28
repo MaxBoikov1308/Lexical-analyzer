@@ -1,3 +1,6 @@
+## Выполнил Бойков Максим Александрович 27 Группа
+
+
 Compiler:
 ```sh
 g++ Scaner.cpp compiler.cpp -o compiler
